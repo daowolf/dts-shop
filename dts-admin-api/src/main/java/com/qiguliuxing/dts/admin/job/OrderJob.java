@@ -20,7 +20,7 @@ import com.qiguliuxing.dts.db.util.OrderUtil;
 /**
  * 检测订单状态
  */
-@Component
+//@Component
 public class OrderJob {
 	private final Log logger = LogFactory.getLog(OrderJob.class);
 

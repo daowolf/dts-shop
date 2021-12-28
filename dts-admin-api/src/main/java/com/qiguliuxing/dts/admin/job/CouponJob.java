@@ -18,7 +18,7 @@ import com.qiguliuxing.dts.db.util.CouponUserConstant;
 /**
  * 检测优惠券过期情况
  */
-@Component
+//@Component
 public class CouponJob {
 	private final Log logger = LogFactory.getLog(CouponJob.class);
 

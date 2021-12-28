@@ -15,7 +15,7 @@ import com.qiguliuxing.dts.db.service.DtsAccountService;
 /**
  * 代理结算job
  */
-@Component
+//@Component
 public class SettlementJob {
 
 	private final Log logger = LogFactory.getLog(SettlementJob.class);
