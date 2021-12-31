@@ -1,7 +1,9 @@
 package com.qiguliuxing.dts.db.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qiguliuxing.dts.db.domain.DtsOrder;
@@ -38,9 +40,60 @@ public class OrderUtil {
 	public static final Short STATUS_REFUND_CONFIRM = 203;
 	public static final Short STATUS_AUTO_CONFIRM = 402;
 
+	private  enum OrderEnum {
+		NOT_PAY(STATUS_CREATE,"未付款"), CANCEL_PAY(STATUS_CANCEL,"取消支付"),
+		HAVE_CANCELED_PAY(STATUS_AUTO_CANCEL,"已取消"),
+		HAVE_PAYED(STATUS_PAY,"已支付"),
+		HAVE_REFUND(STATUS_REFUND,"订单取消，退款中"),
+		HAVE_REFUNDED(STATUS_REFUND_CONFIRM,"已经退款"),
+		HAVE_SHIP(STATUS_SHIP,"已发货"),
+		CONFIRME_SHIPPED(STATUS_CONFIRM, "已收货"),
+		SYSTEM_CONFIRME_SHIPPED(STATUS_AUTO_CONFIRM,"系统确认已收货");
+		private Short status;
+		private String msg;
+		private OrderEnum(Short status,String msg){
+			this.msg = msg;
+			this.status = status;
+		}
+
+		public Short getStatus() {
+			return status;
+		}
+
+		public String getMsg() {
+			return msg;
+		}
+	};
+
 	public static String orderStatusText(DtsOrder order) {
 		int status = order.getOrderStatus().intValue();
+		String msg;
+		// refactor 1
+		switch (status){
+			case 101:
+				msg = "未付款";
+				break;
+			case 102:
+				msg = "已取消";
+				break;
+			case 103:
+				msg = "已取消";
+				break;
+			case 104:
+				msg = "已取消";
+				break;
 
+				//...
+			default:
+				throw new IllegalStateException("orderStatus不支持");
+		}
+		// refactor 2
+		//使用枚举
+
+		//refactor 3
+		Map<Short,String> statusMap = new HashMap<Short,String>(20);
+		statusMap.put(STATUS_CREATE, "未付款");
+		//....
 		if (status == 101) {
 			return "未付款";
 		}
